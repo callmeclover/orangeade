@@ -6,10 +6,11 @@ use std::collections::HashMap;
 #[tokio::main]
 async fn main() {
     let hostname: &str = "https://rust-lang.org";
-    let source: &str = reqwest::get(hostname)
-    .await?
-    .json::<HashMap<String, String>>()
-    .await?;
+    
+    let request = request::Request::get(hyper::Url::parse(hostname).unwrap()).unwrap();
+    let source = request.start().unwrap()
+                     .send().unwrap()
+                     .read_to_string().unwrap();
 /*r#"<html>
         <head>
             <link rel="stylesheet" href="/dummy.css" />
