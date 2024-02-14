@@ -50,7 +50,7 @@ pub async fn replace_resources(source: &str, hostname: &str) -> String {
 
                     Ok(())
                 }),
-                element!("script[src]", |el| {
+                element!("*[src]", |el| {
                     let src = el
                         .get_attribute("src")
                         .expect("src was required");

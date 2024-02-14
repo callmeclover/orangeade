@@ -7,10 +7,8 @@ use std::collections::HashMap;
 async fn main() {
     let hostname: &str = "https://rust-lang.org";
     
-    let request = request::Request::get(hyper::Url::parse(hostname).unwrap()).unwrap();
-    let source = request.start().unwrap()
-                     .send().unwrap()
-                     .read_to_string().unwrap();
+    let request = ureq::get(hostname).call().expect("error occurred. check if this is a valid url.").into_string().ok();
+    let source = &request.unwrap();
 /*r#"<html>
         <head>
             <link rel="stylesheet" href="/dummy.css" />
