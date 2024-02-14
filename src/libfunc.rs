@@ -15,7 +15,7 @@ pub fn replace_resources(source: &str, hostname: &str) {
                         .get_attribute("href")
                         .expect("href was required");
                     
-                    print!(href)
+                    println!(href)
 
                     //el.set_attribute("href", &href)?;
 
@@ -26,7 +26,7 @@ pub fn replace_resources(source: &str, hostname: &str) {
                         .get_attribute("src")
                         .expect("src was required");
                     
-                    print!(src)
+                    println!(src)
 
                     //el.set_attribute("src", &src)?;
 
