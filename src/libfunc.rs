@@ -50,6 +50,16 @@ pub async fn replace_resources(source: &str, hostname: &str) -> String {
 
                     Ok(())
                 }),
+                element!("a[href]", |el| {
+                    // TODO: convert '/test' to '/plsgrab?link=hostname+test'
+                    let href = el
+                        .get_attribute("href")
+                        .expect("href was required");
+                    
+                    el.set_attribute("href", &("/plsgrab?link=".to_owned() + &do_replink_logic(&href, hostname)))?;
+
+                    Ok(())
+                }),
                 element!("*[src]", |el| {
                     let src = el
                         .get_attribute("src")
@@ -65,7 +75,7 @@ pub async fn replace_resources(source: &str, hostname: &str) -> String {
         |c: &[u8]| output.extend_from_slice(c)
     );
 
-    rewriter.write(source.as_bytes());
+    let _ = rewriter.write(source.as_bytes());
     rewriter.end();
 
     return String::from_utf8(output).ok().unwrap();
